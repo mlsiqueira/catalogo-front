@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Movie, MovieResponse, Actor, Director } from '../models/types';
+import { Movie, MovieResponse, Actor, Director, ActorResponse, DirectorResponse } from '../models/types';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,12 @@ export class DataService {
   }
 
   listActors(): Observable<Actor[]> {
-    return this.http.get('http://localhost:3000/actors')
+    return this.http.get<ActorResponse>('http://localhost:3000/actors')
       .pipe(map(e => e.data));
   }
 
   listDirectors(): Observable<Director[]> {
-    return this.http.get('http://localhost:3000/directors')
+    return this.http.get<DirectorResponse>('http://localhost:3000/directors')
       .pipe(map(e => e.data));
   }
 

@@ -1,8 +1,3 @@
-export interface MovieResponse {
-  ok: boolean,
-  data: Movie[];
-}
-
 export interface Actor {
   name: string;
   nationality: string;
@@ -28,4 +23,19 @@ export interface Movie {
   releaseDate: string;
   runtime: number;
   inTheater: boolean;
+}
+
+export interface MovieResponse {
+  ok: boolean,
+  data: Movie[];
+}
+
+export interface ActorResponse {
+  ok: boolean,
+  data: Actor[];
+}
+
+export interface DirectorResponse {
+  ok: boolean,
+  data: Director[];
 }
