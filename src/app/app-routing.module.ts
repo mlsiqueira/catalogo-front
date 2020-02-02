@@ -13,6 +13,15 @@ const routes: Routes = [
   {
     path: 'actors',
     loadChildren: () => import('./pages/actors/actors.module').then(mod => mod.ActorsModule)
+  },
+  {
+    path: '',
+    redirectTo: '/movies',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/movies'
   }
 ];
 

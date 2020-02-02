@@ -9,6 +9,10 @@ const routes: Routes = [
     path: '',
     component: MoviesComponent
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
