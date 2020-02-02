@@ -5,13 +5,15 @@ import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-movie-form',
   templateUrl: './movie-form.component.html',
-  styleUrls: ['./movie-form.component.scss']
+  styleUrls: ['./movie-form.component.scss'],
+  preserveWhitespaces: true
 })
 export class MovieFormComponent implements OnInit {
 
   title = '';
   formGroup;
-  itensTeste = ['Primus', 'Secundos', 'Tertius', 'Quartus']
+  testItens = ['Primus', 'Secundos', 'Tertius', 'Quartus', 'Quintos'];
+  inTheater = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,11 +39,20 @@ export class MovieFormComponent implements OnInit {
   }
 
   onSubmit() { // basta declarar em (ngSubmint)
-    console.log(this.formGroup);
+    console.log(this.formGroup.value);
   }
 
   onReset() {
     this.formGroup.reset();
+  }
+
+  onSelectChange(event: Array<string>) {
+    this.formGroup.controls.actors.setValue(event);
+  }
+
+  setInTheater() {
+    this.inTheater = !this.inTheater;
+    this.formGroup.controls.inTheater.setValue(this.inTheater);
   }
 
 }

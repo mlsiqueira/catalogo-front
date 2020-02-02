@@ -1,19 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Catálogo de Filmes</a>
-  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button> -->
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="movies">Filmes</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="directors">Diretores</a>
-      </li>
-      <li class="nav-item" routerLinkActive="actors">
-        <a class="nav-link" routerLink="actors">Atores</a>
-      </li>
-    </ul>
-  </div>
+<nav class="navbar navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" routerLink="movies">Catálogo de Filmes</a>
+  <span class="row">
+    <button class="btn btn-dark" routerLink="movies">Filmes</button>
+    <button class="btn btn-dark" routerLink="directors">Diretores</button>
+    <button class="btn btn-dark" routerLink="actors" routerLibuttonkActive="active">Atores</button>
+  </span>
 </nav>

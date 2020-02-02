@@ -1,4 +1,4 @@
-<h1>{{ title }}</h1>
+<app-page-header [title]="title"></app-page-header>
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="container">
@@ -6,46 +6,38 @@
       <div class="col-sm">
         <div class="form-group">
           <label for="title">Título:</label>
-          <input formControlName="title" type="text" class="form-control" id="title" placeholder="Example input placeholder">
+          <input formControlName="title" type="text" class="form-control" id="title" placeholder="Nome do filme">
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group">
           <label for="poster">Poster:</label>
-          <input formControlName="poster" type="text" class="form-control" id="poster" placeholder="Example input placeholder">
+          <input formControlName="poster" type="text" class="form-control" id="poster" placeholder="URL do poster do filme">
         </div>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="mb-3">
-      <label for="desc">Textarea</label>
-      <textarea formControlName="desc" class="form-control" id="desc" placeholder="Descrição do filme" required></textarea>
+      <label for="desc">Sinopse:</label>
+      <textarea formControlName="desc" class="form-control" id="desc" placeholder="Descrição do filme..." required></textarea>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-sm">
         <div class="form-group">
-          <label for="director">Director:</label>
+          <label for="director">Diretor:</label>
           <select formControlName="director" class="custom-select form-control" id="director" size="1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option *ngFor="let d of testItens" [value]="d">{{ d }}</option>
           </select>
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group">
-          <label for="genre">Genero:</label>
+          <label for="genre">Gênero:</label>
           <select formControlName="genre" class="form-control" id="genre">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option *ngFor="let d of testItens" [value]="d">{{ d }}</option>
           </select>
         </div>
       </div>
@@ -54,11 +46,15 @@
           <label for="actors">Atores:</label>
           <ng-select
             class=""
-            [items]="itensTeste"
+            [items]="testItens"
             bindLabel="name"
             placeholder="Select item"
             appendTo="body"
-            multiple="true">
+            multiple="true"
+            (change)=onSelectChange($event)>
+            <ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of items">
+              {{ item }}
+            </ng-option>
           </ng-select>
         </div>
       </div>
@@ -75,15 +71,15 @@
       <div class="col-sm">
         <div class="form-group">
           <label for="runtime">Duração:</label>
-          <input formControlName="runtime" type="date" class="form-control" id="runtime" placeholder="Example input placeholder">
+          <input formControlName="runtime" type="text" class="form-control" id="runtime" placeholder="Example input placeholder">
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group">
           <label>Em cartaz:</label><br>
-          <div class="btn-group">
-            <label class="btn btn-outline-info" [class.active]="false">sim</label>
-            <label class="btn btn-outline-danger" [class.active]="true">não</label>
+          <div (click)="setInTheater()" class="btn-group">
+            <label class="btn btn-outline-dark" [class.active]="inTheater">sim</label>
+            <label class="btn btn-outline-dark" [class.active]="!inTheater">não</label>
           </div>
         </div>
       </div>
@@ -91,7 +87,9 @@
   </div>
 
   <div class="container">
-    <button type="submit" type="button" class="btn btn-primary">Submit</button>
-    <button (click)="onReset()" type="reset" type="button" class="btn btn-outline-danger">Reset</button>
+    <div class="float-right">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button (click)="onReset()" type="reset" class="btn btn-outline-danger">Reset</button>
+    </div>
   </div>
 </form>

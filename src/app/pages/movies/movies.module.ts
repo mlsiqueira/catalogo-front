@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { MoviesComponent } from './movies.component';
 import { MovieComponent } from './components/movie/movie.component';
 import { MovieFormComponent } from './components/movie-form/movie-form.component';
@@ -54,7 +56,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
     RouterModule
