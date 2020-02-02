@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DataService } from 'src/app/services/data.service';
+import { MoviesService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/models/types';
 
 @Component({
@@ -13,10 +13,10 @@ export class MoviesComponent implements OnInit {
 
   movies$: Observable<Movie[]>;
 
-  constructor(private data: DataService) { }
+  constructor(private movieService: MoviesService) { }
 
   ngOnInit() {
-    this.movies$ = this.data.listMovies();
+    this.movies$ = this.movieService.listMovies();
   }
 
 }

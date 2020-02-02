@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
+import { MoviesService } from 'src/app/services/movies.service';
+
 @Component({
   selector: 'app-movie-form',
   templateUrl: './movie-form.component.html',
@@ -17,7 +19,8 @@ export class MovieFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private movieService: MoviesService) { }
 
   ngOnInit() {
     this.title = this.route.snapshot.data['pageTitle'];
@@ -40,6 +43,7 @@ export class MovieFormComponent implements OnInit {
 
   onSubmit() { // basta declarar em (ngSubmint)
     console.log(this.formGroup.value);
+    this.movieService.createMovie(this.formGroup);
   }
 
   onReset() {
