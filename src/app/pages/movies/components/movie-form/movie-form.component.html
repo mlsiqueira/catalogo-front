@@ -1,11 +1,97 @@
 <h1>{{ title }}</h1>
-<form>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Título:</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="title">Título:</label>
+          <input formControlName="title" type="text" class="form-control" id="title" placeholder="Example input placeholder">
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="poster">Poster:</label>
+          <input formControlName="poster" type="text" class="form-control" id="poster" placeholder="Example input placeholder">
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Diretor:</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+  <div class="container">
+    <div class="mb-3">
+      <label for="desc">Textarea</label>
+      <textarea formControlName="desc" class="form-control" id="desc" placeholder="Descrição do filme" required></textarea>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="director">Director:</label>
+          <select formControlName="director" class="custom-select form-control" id="director" size="1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="genre">Genero:</label>
+          <select formControlName="genre" class="form-control" id="genre">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div>
+          <label for="actors">Atores:</label>
+          <ng-select
+            class=""
+            [items]="itensTeste"
+            bindLabel="name"
+            placeholder="Select item"
+            appendTo="body"
+            multiple="true">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="date">Data de lançamento:</label>
+          <input formControlName="releaseDate" type="date" class="form-control" id="date" placeholder="Example input placeholder">
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="form-group">
+          <label for="runtime">Duração:</label>
+          <input formControlName="runtime" type="date" class="form-control" id="runtime" placeholder="Example input placeholder">
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="form-group">
+          <label>Em cartaz:</label><br>
+          <div class="btn-group">
+            <label class="btn btn-outline-info" [class.active]="false">sim</label>
+            <label class="btn btn-outline-danger" [class.active]="true">não</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <button type="submit" type="button" class="btn btn-primary">Submit</button>
+    <button (click)="onReset()" type="reset" type="button" class="btn btn-outline-danger">Reset</button>
   </div>
 </form>

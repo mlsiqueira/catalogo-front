@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { MoviesComponent } from './movies.component';
 import { MovieComponent } from './components/movie/movie.component';
@@ -49,7 +52,9 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgSelectModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule
