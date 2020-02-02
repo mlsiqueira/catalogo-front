@@ -1,23 +1,24 @@
 <ul class="list-unstyled">
-  <li class="media">
-    <img src="..." class="mr-3" alt="...">
+  <li *ngFor="let movie of movies$ | async" class="media">
+    <img [src]="movie.poster" class="mr-3">
     <div class="media-body">
-      <h5 class="mt-0 mb-1">List-based media object</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-    </div>
-  </li>
-  <li class="media my-4">
-    <img src="..." class="mr-3" alt="...">
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">List-based media object</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-    </div>
-  </li>
-  <li class="media">
-    <img src="..." class="mr-3" alt="...">
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">List-based media object</h5>
-      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+      <h2 class="mt-0 mb-1">{{ movie.title }}</h2>
+      <p>
+        <span>{{ movie.genre }}</span>
+        <span>{{ movie.releaseDate | date:'yyyy' }}</span>
+        <span>{{ movie.runtime }} minutos</span>
+        <span *ngIf="movie.inTheater">Em cartaz</span>
+        <span *ngIf="!movie.inTheater"><del>Em cartaz</del></span>
+      </p>
+      {{ movie.desc }}
+      <p>
+        <strong>Diretor:</strong> {{ movie.director.name }}</p>
+      <p>
+        <strong>Estrelando:</strong>
+        <span *ngFor="let actor of movie.actors; last as l">
+          {{ actor.name }}<span *ngIf="!l">, </span><span *ngIf="l">.</span>
+        </span>
+      </p>
     </div>
   </li>
 </ul>
