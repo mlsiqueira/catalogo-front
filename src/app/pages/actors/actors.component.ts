@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { DataService } from 'src/app/services/data.service';
+import { Actor } from 'src/app/models/types';
 
 @Component({
   selector: 'app-actors',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActorsComponent implements OnInit {
 
-  constructor() { }
+  actors$: Observable<Actor[]>;
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.actors$ = this.data.listActors();
   }
 
 }

@@ -1,1 +1,12 @@
-<p>actors works!</p>
+<ul class="list-unstyled">
+  <li *ngFor="let actor of actors$ | async" class="media">
+    <img [src]="actor.avatar" class="mr-3">
+    <div class="media-body">
+      <h2 class="mt-0 mb-1">{{ actor.name }}</h2>
+      <hr class="my-4">
+      <p>
+        {{ actor.bio }}
+      </p>
+    </div>
+  </li>
+</ul>

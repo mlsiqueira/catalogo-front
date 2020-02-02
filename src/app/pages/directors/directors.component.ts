@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { DataService } from 'src/app/services/data.service';
+import { Director } from 'src/app/models/types';
 
 @Component({
   selector: 'app-directors',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DirectorsComponent implements OnInit {
 
-  constructor() { }
+  directors$: Observable<Director[]>;
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.directors$ = this.data.listDirectors();
   }
 
 }

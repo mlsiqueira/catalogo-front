@@ -1,1 +1,12 @@
-<p>directors works!</p>
+<ul class="list-unstyled">
+  <li *ngFor="let director of directors$ | async" class="media">
+    <img [src]="director.avatar" class="mr-2">
+    <div class="media-body">
+      <h2 class="mt-0 mb-1">{{ director.name }}</h2>
+      <hr class="my-4">
+      <p>
+        {{ director.bio }}
+      </p>
+    </div>
+  </li>
+</ul>
