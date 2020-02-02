@@ -3,11 +3,33 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ActorsComponent } from './actors.component';
+import { ActorFormComponent } from './components/actor-form/actor-form.component';
+import { ActorComponent } from './components/actor/actor.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ActorsComponent
+  },
+  {
+    path: 'new',
+    component: ActorFormComponent,
+    data: { pageTitle: 'New'}
+  },
+  {
+    path: ':id',
+    children: [
+      {
+        path: '',
+        component: ActorComponent,
+        data: { pageTitle: 'New'},
+      },
+      {
+        path: 'edit',
+        component: ActorFormComponent,
+        data: { pageTitle: 'Edit'}
+      }
+    ]
   },
   {
     path: '**',
@@ -17,7 +39,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ActorsComponent
+    ActorsComponent,
+    ActorFormComponent,
+    ActorComponent
   ],
   imports: [
     CommonModule,
