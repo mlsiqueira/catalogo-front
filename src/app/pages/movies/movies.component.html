@@ -10,7 +10,11 @@
         <span *ngIf="movie.inTheater">Em cartaz</span>
         <span *ngIf="!movie.inTheater"><del>Em cartaz</del></span>
       </p>
-      {{ movie.desc }}
+      <hr class="my-4">
+      <p>
+        {{ movie.desc }}
+      </p>
+      <hr class="my-4">
       <p>
         <strong>Diretor:</strong> {{ movie.director.name }}</p>
       <p>
