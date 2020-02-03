@@ -1,4 +1,4 @@
-<app-page-header [title]="title"></app-page-header>
+<app-page-header [title]="pageTitle"></app-page-header>
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="container">
@@ -29,7 +29,7 @@
         <div class="form-group">
           <label for="directorId">Diretor:</label>
           <select formControlName="directorId" class="custom-select form-control" id="directorId" size="1">
-            <option *ngFor="let d of testItens" [value]="1">{{ d.name }}</option>
+            <option *ngFor="let director of directors$ | async" [value]="director.id">{{ director.name }}</option>
           </select>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="genre">Gênero:</label>
           <select formControlName="genre" class="form-control" id="genre">
-            <option *ngFor="let d of testItens" value="Ação">{{ d.name }}</option>
+            <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
           </select>
         </div>
       </div>
@@ -45,18 +45,17 @@
         <div>
           <label for="actors">Atores:</label>
           <ng-select
-            class=""
             bindLabel="name"
-            [items]="testItens"
+            [items]="actors$ | async"
             placeholder="Select item"
             appendTo="body"
             multiple="true"
             (change)=onSelectChange($event)>
             <ng-option
-              [value]="item.id"
-              [disabled]="item"
-              *ngFor="let item of testItens; index as i">
-                {{ item.name }}
+              [value]="actor.id"
+              [disabled]="actor.id"
+              *ngFor="let actor of actors$ | async; index as i">
+                {{ actor.name }}
             </ng-option>
           </ng-select>
         </div>

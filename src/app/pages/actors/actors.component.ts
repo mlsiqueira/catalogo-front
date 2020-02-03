@@ -19,4 +19,11 @@ export class ActorsComponent implements OnInit {
     this.actors$ = this.actorsService.listActors();
   }
 
+  deleteMovie(id: string, idx: number) {
+    this.actorsService.deleteActor(id).subscribe(e => {
+      this.actors$ = this.actorsService.listActors();
+      // this.router.navigateByUrl(`${location.href}#${idx + 1}`);
+    });
+  }
+
 }

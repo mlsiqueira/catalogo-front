@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -57,6 +57,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgSelectModule,
     ReactiveFormsModule,
+    FormsModule,
     SharedModule
   ],
   exports: [

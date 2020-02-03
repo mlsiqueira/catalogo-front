@@ -1,5 +1,6 @@
 <ul class="list-unstyled">
-  <li *ngFor="let movie of movies$ | async" class="media">
+  <li
+    *ngFor="let movie of movies$ | async" class="media">
     <img [src]="movie.poster" class="mr-3">
     <div class="media-body">
       <h2 class="mt-0 mb-1">{{ movie.title }}</h2>
@@ -24,9 +25,9 @@
         </span>
       </p>
       <p class="float-right">
-        <app-pencil-button></app-pencil-button>
-        <app-trash-button></app-trash-button>
-        <app-add-button></app-add-button>
+        <app-pencil-button [routerLink]="[movie.id, 'edit']"></app-pencil-button>
+        <app-trash-button (click)="deleteMovie(movie.id)"></app-trash-button>
+        <app-add-button routerLink="new"></app-add-button>
       </p>
     </div>
   </li>

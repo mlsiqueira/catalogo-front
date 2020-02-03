@@ -19,10 +19,24 @@ export class MoviesService {
       .pipe(map(e => e.data));
   }
 
+  get(id): Observable<Movie> {
+    return this.http.get<any>(`${environment.API_URL}/movies/${id}`)
+      .pipe(map(e => e.data));
+  }
+
   createMovie(body: Movie) {
     return this.http.post(`${environment.API_URL}/movies`, body)
       .pipe(
         tap(console.log)
       );
   }
+
+  deleteMovie(id: string) {
+    return this.http.delete(`${environment.API_URL}/movies/${id}`)
+      .pipe(
+        tap(console.log),
+        map(e => e.data)
+      );
+  }
+
 }

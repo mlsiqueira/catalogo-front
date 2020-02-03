@@ -7,6 +7,11 @@
       <p>
         {{ director.bio }}
       </p>
+      <p class="float-right">
+        <app-pencil-button [routerLink]="[director.id, 'edit']"></app-pencil-button>
+        <app-trash-button (click)="deleteMovie(director.id)"></app-trash-button>
+        <app-add-button routerLink="new"></app-add-button>
+      </p>
     </div>
   </li>
 </ul>

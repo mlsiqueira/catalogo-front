@@ -1,4 +1,5 @@
 export interface Actor {
+  id: number;
   name: string;
   nationality: string;
   bio: string;
@@ -6,6 +7,7 @@ export interface Actor {
 }
 
 export interface Director {
+  id: number;
   name: string;
   nationality: string;
   bio: string;
@@ -26,12 +28,12 @@ export interface Movie {
 }
 
 export interface MovieResponse {
-  ok: boolean,
+  ok: boolean;
   data: Movie[];
 }
 
 export interface ActorResponse {
-  ok: boolean,
+  ok: boolean;
   data: Actor[];
 }
 

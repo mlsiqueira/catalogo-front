@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 import { DirectorsService } from 'src/app/services/directors.service';
 import { Director } from 'src/app/models/types';
@@ -13,10 +13,23 @@ export class DirectorsComponent implements OnInit {
 
   directors$: Observable<Director[]>;
 
-  constructor(private data: DirectorsService) { }
+  constructor(private directorsService: DirectorsService) { }
 
   ngOnInit() {
-    this.directors$ = this.data.listDirectors();
+    this.directors$ = this.directorsService.listDirectors();
+  }
+
+  deleteMovie(id: string, idx: number) {
+    const observer = {
+      next: () => {
+        this.directors$ = this.directorsService.listDirectors();
+      },
+      error: error => {
+        console.error(error);
+      }
+    };
+
+    this.directorsService.deleteDirector(id).subscribe(observer);
   }
 
 }
