@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import * as toastr from 'toastr';
 
 import { DirectorsService } from 'src/app/services/directors.service';
 import { Director } from 'src/app/models/types';
@@ -7,7 +9,8 @@ import { Director } from 'src/app/models/types';
 @Component({
   selector: 'app-directors',
   templateUrl: './directors.component.html',
-  styleUrls: ['./directors.component.scss']
+  styleUrls: ['./directors.component.scss'],
+  preserveWhitespaces: true
 })
 export class DirectorsComponent implements OnInit {
 
@@ -19,13 +22,14 @@ export class DirectorsComponent implements OnInit {
     this.directors$ = this.directorsService.listDirectors();
   }
 
-  deleteMovie(id: string, idx: number) {
+  deleteMovie(id: string) {
     const observer = {
       next: () => {
         this.directors$ = this.directorsService.listDirectors();
+        toastr.success('Diretor excluído com sucesso.');
       },
       error: error => {
-        console.error(error);
+        toastr.error(error);
       }
     };
 

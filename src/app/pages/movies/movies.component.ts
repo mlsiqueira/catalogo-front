@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import * as toastr from 'toastr';
 
 import { MoviesService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/models/types';
@@ -24,10 +26,17 @@ export class MoviesComponent implements OnInit {
   }
 
   deleteMovie(id: string, idx: number) {
-    this.moviesService.deleteMovie(id).subscribe(e => {
-      this.movies$ = this.moviesService.listMovies();
-      // this.router.navigateByUrl(`${location.href}#${idx + 1}`);
-    });
+    const observer = {
+      next: () => {
+        this.movies$ = this.moviesService.listMovies();
+        toastr.success('Filme excluído com sucesso.');
+      },
+      error: error => {
+        toastr.error(error);
+      }
+    };
+
+    this.moviesService.deleteMovie(id).subscribe(observer);
   }
 
 }
