@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { MoviesService } from 'src/app/services/movies.service';
+import { MoviesService } from '../../../../services/movies.service';
 
 @Component({
   selector: 'app-movie-form',
@@ -12,38 +12,28 @@ import { MoviesService } from 'src/app/services/movies.service';
 })
 export class MovieFormComponent implements OnInit {
 
-  title = '';
+  title: string;
   formGroup: FormGroup;
-  testItens = ['Primus', 'Secundos', 'Tertius', 'Quartus', 'Quintos'];
+  testItens = [
+    { id: 1, name: 'Primus' },
+    { id: 2, name: 'Secundos' },
+    { id: 3, name: 'Tertius' },
+    { id: 4, name: 'Quartus' },
+    { id: 5, name: 'Quintos' }];
   inTheater = false;
 
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private movieService: MoviesService) { }
+    private moviesService: MoviesService) { }
 
   ngOnInit() {
     this.title = this.route.snapshot.data['pageTitle'];
     this.buildForm();
   }
 
-  buildForm() {
-    this.formGroup = this.formBuilder.group({
-      title: null,
-      desc: null,
-      poster: null,
-      director: null,
-      genre: null,
-      actors: null,
-      releaseDate: null,
-      runtime: null,
-      inTheater: false,
-    });
-  }
-
-  onSubmit() { // basta declarar em (ngSubmint)
-    console.log(this.formGroup.value);
-    this.movieService.createMovie(this.formGroup.value).subscribe(console.log)
+  onSubmit() {
+    this.moviesService.createMovie(this.formGroup.value).subscribe(console.log)
   }
 
   onReset() {
@@ -51,12 +41,27 @@ export class MovieFormComponent implements OnInit {
   }
 
   onSelectChange(event: Array<string>) {
-    this.formGroup.controls.actors.setValue(event);
+    this.formGroup.controls.actorsIds.setValue(event.map((e: any) => e.id.toString()));
   }
 
   setInTheater() {
     this.inTheater = !this.inTheater;
-    this.formGroup.controls.inTheater.setValue(this.inTheater);
+    this.formGroup.controls.inTheater.setValue(this.inTheater.toString());
+  }
+
+
+  private buildForm() {
+    this.formGroup = this.formBuilder.group({
+      title: null,
+      desc: null,
+      poster: null,
+      directorId: null,
+      genre: null,
+      actorsIds: null,
+      releaseDate: null,
+      runtime: null,
+      inTheater: false,
+    });
   }
 
 }

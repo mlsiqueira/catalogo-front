@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
@@ -19,8 +19,10 @@ export class MoviesService {
       .pipe(map(e => e.data));
   }
 
-  createMovie(body: Movie): Observable<Movie[]> {
-    return this.http.post<MovieResponse>(`${environment.API_URL}/movies`, body)
-      .pipe(map(e => e.data));
+  createMovie(body: Movie) {
+    return this.http.post(`${environment.API_URL}/movies`, body)
+      .pipe(
+        tap(console.log)
+      );
   }
 }

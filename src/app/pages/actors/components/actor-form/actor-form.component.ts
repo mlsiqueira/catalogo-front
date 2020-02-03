@@ -25,15 +25,6 @@ export class ActorFormComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm() {
-    this.formGroup = this.formBuilder.group({
-      name: null,
-      bio: null,
-      avatar: null,
-      nationality: null,
-    });
-  }
-
   onSubmit() {
     console.log(this.formGroup.value);
     this.actorService.createActor(this.formGroup.value)
@@ -42,6 +33,16 @@ export class ActorFormComponent implements OnInit {
 
   onReset() {
     this.formGroup.reset();
+  }
+
+
+  private buildForm() {
+    this.formGroup = this.formBuilder.group({
+      name: null,
+      bio: null,
+      avatar: null,
+      nationality: null,
+    });
   }
 
 }

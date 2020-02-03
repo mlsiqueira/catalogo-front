@@ -27,9 +27,9 @@
     <div class="row">
       <div class="col-sm">
         <div class="form-group">
-          <label for="director">Diretor:</label>
-          <select formControlName="director" class="custom-select form-control" id="director" size="1">
-            <option *ngFor="let d of testItens" [value]="1">{{ d }}</option>
+          <label for="directorId">Diretor:</label>
+          <select formControlName="directorId" class="custom-select form-control" id="directorId" size="1">
+            <option *ngFor="let d of testItens" [value]="1">{{ d.name }}</option>
           </select>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
           <label for="genre">Gênero:</label>
           <select formControlName="genre" class="form-control" id="genre">
-            <option *ngFor="let d of testItens" [value]="d">{{ d }}</option>
+            <option *ngFor="let d of testItens" value="Ação">{{ d.name }}</option>
           </select>
         </div>
       </div>
@@ -52,8 +52,11 @@
             appendTo="body"
             multiple="true"
             (change)=onSelectChange($event)>
-            <ng-option [value]="i + 1" [disabled]="item" *ngFor="let item of testItens; index as i">
-              {{ item }}
+            <ng-option
+              [value]="item.id"
+              [disabled]="item"
+              *ngFor="let item of testItens; index as i">
+                {{ item.name }}
             </ng-option>
           </ng-select>
         </div>

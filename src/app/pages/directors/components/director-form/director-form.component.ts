@@ -26,23 +26,23 @@ export class DirectorFormComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm() {
-    this.formGroup = this.formBuilder.group({
-      name: null,
-      bio: null,
-      avatar: null,
-      nationality: null,
-    });
-  }
-
   onSubmit() {
-    console.log(this.formGroup.value);
     this.directorService.createDirector(this.formGroup.value)
       .subscribe(console.log);
   }
 
   onReset() {
     this.formGroup.reset();
+  }
+
+
+  private buildForm() {
+    this.formGroup = this.formBuilder.group({
+      name: null,
+      bio: null,
+      avatar: null,
+      nationality: null,
+    });
   }
 
 }
