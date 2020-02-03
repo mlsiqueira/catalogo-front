@@ -5,11 +5,11 @@
     <div class="media-body">
       <h2 class="mt-0 mb-1">{{ movie.title }}</h2>
       <p>
-        <span>{{ movie.genre }}</span>
-        <span>{{ movie.releaseDate | date:'yyyy' }}</span>
-        <span>{{ movie.runtime }} minutos</span>
-        <span *ngIf="movie.inTheater">Em cartaz</span>
-        <span *ngIf="!movie.inTheater"><del>Em cartaz</del></span>
+        <span class="details">{{ movie.genre }}</span>
+        <span class="details">{{ movie.releaseDate | date:'yyyy' }}</span>
+        <span class="details">{{ movie.runtime }} minutos</span>
+        <span *ngIf="movie.inTheater" class="details">Em cartaz</span>
+        <span *ngIf="!movie.inTheater" class="details"><del>Em cartaz</del></span>
       </p>
       <hr class="my-4">
       <p>
