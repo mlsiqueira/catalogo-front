@@ -27,7 +27,7 @@ export class ActorFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formGroup.value);
-    this.actorService.createActor(this.formGroup.value)
+    this.actorService.create(this.formGroup.value)
       .subscribe(console.log);
   }
 

@@ -19,13 +19,13 @@ export class ActorsComponent implements OnInit {
   constructor(private actorsService: ActorsService) { }
 
   ngOnInit() {
-    this.actors$ = this.actorsService.listActors();
+    this.actors$ = this.actorsService.list();
   }
 
   deleteMovie(id: string, idx: number) {
     const observer = {
       next: () => {
-        this.actors$ = this.actorsService.listActors();
+        this.actors$ = this.actorsService.list();
         toastr.success('Ator excluído com sucesso.');
       },
       error: error => {
@@ -33,7 +33,7 @@ export class ActorsComponent implements OnInit {
       }
     };
 
-    this.actorsService.deleteActor(id).subscribe(observer);
+    this.actorsService.delete(id).subscribe(observer);
   }
 
 }

@@ -9,7 +9,6 @@ import { DirectorsService } from '../../../../services/directors.service';
 import { Director, Actor, Movie } from 'src/app/models/types';
 import { genders } from '../../../../models/genders';
 
-
 @Component({
   selector: 'app-movie-form',
   templateUrl: './movie-form.component.html',
@@ -39,8 +38,8 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.pageTitle = this.route.snapshot.data['pageTitle'];
-    this.actors$ = this.actorsService.listActors();
-    this.directors$ = this.directorsService.listDirectors();
+    this.actors$ = this.actorsService.list();
+    this.directors$ = this.directorsService.list();
     this.setCurrentAction();
     this.buildForm();
     this.populateForm();
@@ -51,8 +50,19 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   }
 
   onSubmit() {
-    this.moviesService.create(this.formGroup.value)
-      .subscribe(m => this.redirectAndReload(m));
+    const id = this.route.snapshot.params['id'];
+
+    if (this.currentAction === 'new') {
+      console.log('NEW:', this.formGroup.value);
+      this.moviesService.create(this.formGroup.value)
+        .subscribe((m: Movie) => this.router.navigateByUrl('/movies'));
+    } else {
+      console.log('EDIT:', this.formGroup.value);
+      this.moviesService.update(id, this.formGroup.value)
+        .subscribe((m: Movie) => {
+          this.router.navigateByUrl('/movies');
+        });
+    }
   }
 
   onReset() {
@@ -87,24 +97,25 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
     if (this.currentAction === 'edit') {
       const id = this.route.snapshot.params['id'];
       this.moviesService.get(id).subscribe(m => {
+
+        const ids = m.actors.map(e => e.id.toString());
+
         this.formGroup.setValue({
           title: m.title,
           desc: m.desc,
           poster: m.poster,
-          directorId: m.director.id,
+          directorId: m.director.id.toString(),
           genre: m.genre,
-          actorIds: m.actors.map(e => e.id),
+          actorIds: [...ids],
           releaseDate: m.releaseDate,
-          runtime: m.runtime,
-          inTheater: m.inTheater,
+          runtime: m.runtime.toString(),
+          inTheater: m.inTheater.toString()
         });
 
-        console.log(this.formGroup.value);
-
-        this.selected = m.actors.map(e => e.id);
+        console.log('FORM GROUP', this.formGroup.value);
+        this.inTheater = m.inTheater;
       });
     }
-
   }
 
   /** Verifica na URL se existe um segmento 'new' */
@@ -118,23 +129,11 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
 
   private setPageTitle() {
     if (this.currentAction === 'new') {
-      this.pageTitle = 'Cadastro de um novo filme';
+      this.pageTitle = 'Cadastrando um novo filme:';
     } else {
-      const movieName = this.formGroup.value.title || ''; // para evitar de escrever null
+      const movieName = this.formGroup.value.title || '';
       this.pageTitle = `Editando o filme: ${movieName}`;
     }
-  }
-
-  /**
-   * Faz o seguinte redirecionamento (quando salvar a nova categoria):
-   * url/categories/new -> url/categories/ -> url/categories/:id/edit
-   */
-  private redirectAndReload(movie: Movie) {
-    // navigateByUrl retorna uma Promessa
-    this.router.navigateByUrl('movies',     // navego primeiro para movies
-      { skipLocationChange: true })         // não salvo no histórico
-      .then(                                // quando terminar de navegar...
-        () => this.router.navigate(['movies', movie.id, 'edit']));
   }
 
 }

@@ -27,7 +27,7 @@ export class DirectorFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.directorService.createDirector(this.formGroup.value)
+    this.directorService.create(this.formGroup.value)
       .subscribe(console.log);
   }
 

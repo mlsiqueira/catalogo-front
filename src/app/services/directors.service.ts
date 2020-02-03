@@ -14,26 +14,45 @@ export class DirectorsService {
 
   constructor(private http: HttpClient) { }
 
-  listDirectors(): Observable<Director[]> {
+  list(): Observable<Director[]> {
     return this.http.get<DirectorResponse>(`${environment.API_URL}/directors`)
-      .pipe(map(e => e.data));
-  }
-
-  createDirector(body: Director) {
-    return this.http.post(`${environment.API_URL}/directors`, body)
       .pipe(
-        tap(console.log)
+        map(e => e.data)
       );
   }
 
-  deleteDirector(id: string) {
+  get(id: string): Observable<Director> {
+    return this.http.get<any>(`${environment.API_URL}/directors/${id}`)
+      .pipe(
+        map(e => e.data)
+      );
+  }
+
+  create(body: Director): Observable<Director> {
+    return this.http.post<any>(`${environment.API_URL}/directors`, body)
+      .pipe(
+        // tap(console.log)
+        map(e => e.data)
+      );
+  }
+
+  update(id: string, body: Director): Observable<Director> {
+    return this.http.put<any>(`${environment.API_URL}/directors/${id}`, body)
+      .pipe(
+        // tap(console.log),
+        map(e => e.data)
+      );
+  }
+
+  delete(id: string)  {
     return this.http.delete<DirectorResponse>(`${environment.API_URL}/directors/${id}`)
       .pipe(
-        tap(console.log),
+        // tap(console.log),
         map(e => e.data),
         catchError(this.handleError)
       );
   }
+
 
   private handleError(errorResp: HttpErrorResponse) {
     const { errno } = errorResp.error.error.parent;

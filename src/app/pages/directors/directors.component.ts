@@ -19,13 +19,13 @@ export class DirectorsComponent implements OnInit {
   constructor(private directorsService: DirectorsService) { }
 
   ngOnInit() {
-    this.directors$ = this.directorsService.listDirectors();
+    this.directors$ = this.directorsService.list();
   }
 
   deleteMovie(id: string) {
     const observer = {
       next: () => {
-        this.directors$ = this.directorsService.listDirectors();
+        this.directors$ = this.directorsService.list();
         toastr.success('Diretor excluído com sucesso.');
       },
       error: error => {
@@ -33,7 +33,7 @@ export class DirectorsComponent implements OnInit {
       }
     };
 
-    this.directorsService.deleteDirector(id).subscribe(observer);
+    this.directorsService.delete(id).subscribe(observer);
   }
 
 }
