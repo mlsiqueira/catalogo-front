@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { DirectorsComponent } from './directors.component';
 import { DirectorFormComponent } from './components/director-form/director-form.component';
-import { DirectorComponent } from './components/director/director.component';
 
 const routes: Routes = [
   {
@@ -16,23 +15,11 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: DirectorFormComponent,
-    data: { pageTitle: 'New'}
+    component: DirectorFormComponent
   },
   {
-    path: ':id',
-    children: [
-      {
-        path: '',
-        component: DirectorsComponent,
-        data: { pageTitle: 'New'},
-      },
-      {
-        path: 'edit',
-        component: DirectorFormComponent,
-        data: { pageTitle: 'Edit'}
-      }
-    ]
+    path: ':id/edit',
+    component: DirectorFormComponent
   },
   {
     path: '**',
@@ -43,8 +30,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     DirectorsComponent,
-    DirectorFormComponent,
-    DirectorComponent
+    DirectorFormComponent
   ],
   imports: [
     CommonModule,

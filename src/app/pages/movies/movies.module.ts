@@ -8,37 +8,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { MoviesComponent } from './movies.component';
-import { MovieComponent } from './components/movie/movie.component';
 import { MovieFormComponent } from './components/movie-form/movie-form.component';
 
 const routes: Routes = [
   {
-    // www.url.com/movies
     path: '',
     component: MoviesComponent
   },
   {
-    // www.url.com/movies/new
     path: 'new',
-    component: MovieFormComponent,
-    data: { pageTitle: 'New'}
+    component: MovieFormComponent
   },
   {
-    path: ':id',
-    children: [
-      {
-        // www.url.com/movies/15
-        path: '',
-        component: MovieComponent,
-        data: { pageTitle: 'New'},
-      },
-      {
-        // www.url.com/movies/15/edit
-        path: 'edit',
-        component: MovieFormComponent,
-        data: { pageTitle: 'Edit'}
-      }
-    ]
+    path: ':id/edit',
+    component: MovieFormComponent
   },
   {
     path: '**',
@@ -49,7 +32,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     MoviesComponent,
-    MovieComponent,
     MovieFormComponent
   ],
   imports: [
