@@ -15,12 +15,12 @@ export class MoviesService {
   constructor(private http: HttpClient) { }
 
   listMovies(): Observable<Movie[]> {
-    return this.http.get<MovieResponse>(`${environment.API_URL}'/movies`)
+    return this.http.get<MovieResponse>(`${environment.API_URL}/movies`)
       .pipe(map(e => e.data));
   }
 
   createMovie(body: Movie): Observable<Movie[]> {
-    return this.http.post<MovieResponse>(`${environment.API_URL}'/movies`, body)
+    return this.http.post<MovieResponse>(`${environment.API_URL}/movies`, body)
       .pipe(map(e => e.data));
   }
 }

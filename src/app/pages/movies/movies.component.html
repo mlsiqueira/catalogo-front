@@ -23,6 +23,11 @@
           {{ actor.name }}<span *ngIf="!l">, </span><span *ngIf="l">.</span>
         </span>
       </p>
+      <p class="float-right">
+        <app-pencil-button></app-pencil-button>
+        <app-trash-button></app-trash-button>
+        <app-add-button></app-add-button>
+      </p>
     </div>
   </li>
 </ul>

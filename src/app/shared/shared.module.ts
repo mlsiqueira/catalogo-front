@@ -5,11 +5,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { PencilButtonComponent } from './pencil-button/pencil-button.component';
+import { TrashButtonComponent } from './trash-button/trash-button.component';
+import { AddButtonComponent } from './add-button/add-button.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    PencilButtonComponent,
+    TrashButtonComponent,
+    AddButtonComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +24,10 @@ import { PageHeaderComponent } from './page-header/page-header.component';
   ],
   exports: [
     NavbarComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    PencilButtonComponent,
+    TrashButtonComponent,
+    AddButtonComponent
   ]
 })
 export class SharedModule { }

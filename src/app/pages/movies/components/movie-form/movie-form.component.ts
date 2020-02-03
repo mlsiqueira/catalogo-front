@@ -43,7 +43,7 @@ export class MovieFormComponent implements OnInit {
 
   onSubmit() { // basta declarar em (ngSubmint)
     console.log(this.formGroup.value);
-    this.movieService.createMovie(this.formGroup.value);
+    this.movieService.createMovie(this.formGroup.value).subscribe(console.log)
   }
 
   onReset() {

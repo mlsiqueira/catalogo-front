@@ -7,16 +7,17 @@ import { Movie } from 'src/app/models/types';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss']
+  styleUrls: ['./movies.component.scss'],
+  preserveWhitespaces: true
 })
 export class MoviesComponent implements OnInit {
 
   movies$: Observable<Movie[]>;
 
-  constructor(private movieService: MoviesService) { }
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit() {
-    this.movies$ = this.movieService.listMovies();
+    this.movies$ = this.moviesService.listMovies();
   }
 
 }
