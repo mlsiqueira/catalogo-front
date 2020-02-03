@@ -51,7 +51,7 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   }
 
   onSubmit() {
-    this.moviesService.createMovie(this.formGroup.value)
+    this.moviesService.create(this.formGroup.value)
       .subscribe(m => this.redirectAndReload(m));
   }
 

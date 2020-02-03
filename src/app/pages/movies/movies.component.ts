@@ -22,13 +22,13 @@ export class MoviesComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.movies$ = this.moviesService.listMovies();
+    this.movies$ = this.moviesService.list();
   }
 
   deleteMovie(id: string, idx: number) {
     const observer = {
       next: () => {
-        this.movies$ = this.moviesService.listMovies();
+        this.movies$ = this.moviesService.list();
         toastr.success('Filme excluído com sucesso.');
       },
       error: error => {
@@ -36,7 +36,7 @@ export class MoviesComponent implements OnInit {
       }
     };
 
-    this.moviesService.deleteMovie(id).subscribe(observer);
+    this.moviesService.delete(id).subscribe(observer);
   }
 
 }
