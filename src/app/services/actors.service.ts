@@ -12,12 +12,10 @@ import { Actor, ActorResponse } from '../models/types';
 })
 export class ActorsService {
 
-  API_URL = environment.API_URL;
-
   constructor(private http: HttpClient) { }
 
   listActors(): Observable<Actor[]> {
-    return this.http.get<ActorResponse>(`${this.API_URL}/actors`)
+    return this.http.get<ActorResponse>(`${environment.API_URL}/actors`)
       .pipe(
         tap(console.log),
         map(e => e.data)
@@ -25,14 +23,14 @@ export class ActorsService {
   }
 
   createActor(body: Actor) {
-    return this.http.post(`${this.API_URL}/actors`, body)
+    return this.http.post(`${environment.API_URL}/actors`, body)
       .pipe(
         tap(console.log)
       );
   }
 
   deleteActor(id: string) {
-    return this.http.delete<ActorResponse>(`${this.API_URL}/actors/${id}`)
+    return this.http.delete<ActorResponse>(`${environment.API_URL}/actors/${id}`)
       .pipe(
         tap(console.log),
         catchError(this.handleError),
@@ -52,5 +50,5 @@ export class ActorsService {
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later...');
-}
+  }
 }

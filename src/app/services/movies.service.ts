@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from 'src/environments/environment';
+
 import { Movie, MovieResponse } from '../models/types';
 
 @Injectable({
@@ -13,12 +15,12 @@ export class MoviesService {
   constructor(private http: HttpClient) { }
 
   listMovies(): Observable<Movie[]> {
-    return this.http.get<MovieResponse>('http://localhost:3000/movies')
+    return this.http.get<MovieResponse>(`${environment.API_URL}'/movies`)
       .pipe(map(e => e.data));
   }
 
   createMovie(body: Movie): Observable<Movie[]> {
-    return this.http.post<MovieResponse>('http://localhost:3000/movies', body)
+    return this.http.post<MovieResponse>(`${environment.API_URL}'/movies`, body)
       .pipe(map(e => e.data));
   }
 }
