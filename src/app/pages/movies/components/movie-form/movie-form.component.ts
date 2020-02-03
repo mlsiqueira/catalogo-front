@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -13,7 +13,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 export class MovieFormComponent implements OnInit {
 
   title = '';
-  formGroup;
+  formGroup: FormGroup;
   testItens = ['Primus', 'Secundos', 'Tertius', 'Quartus', 'Quintos'];
   inTheater = false;
 
@@ -43,7 +43,7 @@ export class MovieFormComponent implements OnInit {
 
   onSubmit() { // basta declarar em (ngSubmint)
     console.log(this.formGroup.value);
-    this.movieService.createMovie(this.formGroup);
+    this.movieService.createMovie(this.formGroup.value);
   }
 
   onReset() {

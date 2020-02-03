@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ActorsComponent } from './actors.component';
 import { ActorFormComponent } from './components/actor-form/actor-form.component';
@@ -45,7 +48,9 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule
