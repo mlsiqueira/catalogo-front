@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { MoviesService } from '../../../../services/movies.service';
@@ -20,9 +20,7 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   currentAction: ('new' | 'edit') = 'edit';
   pageTitle: string;
   formGroup: FormGroup;
-  submittingForm = false;  // estado para 'travar' o sistema enquanto envia
   inTheater = false;
-  selected = [];
   genders = genders;
 
   actors$: Observable<Actor[]>;
@@ -37,7 +35,6 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
     private directorsService: DirectorsService) { }
 
   ngOnInit() {
-    this.pageTitle = this.route.snapshot.data['pageTitle'];
     this.actors$ = this.actorsService.list();
     this.directors$ = this.directorsService.list();
     this.setCurrentAction();
@@ -79,17 +76,23 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   }
 
 
+  get title() {
+    const title = this.formGroup.get('title');
+    return title;
+  }
+
+
   private buildForm() {
     this.formGroup = this.formBuilder.group({
-      title: null,
+      title: [null, Validators.required],
       desc: null,
       poster: null,
-      directorId: null,
+      directorId: [null, Validators.required],
       genre: null,
       actorIds: null,
       releaseDate: null,
       runtime: null,
-      inTheater: false,
+      inTheater: 'false',
     });
   }
 

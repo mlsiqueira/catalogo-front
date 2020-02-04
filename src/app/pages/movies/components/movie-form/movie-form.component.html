@@ -6,7 +6,16 @@
       <div class="col-sm">
         <div class="form-group">
           <label for="title">Título:</label>
-          <input formControlName="title" type="text" class="form-control" id="title" placeholder="Nome do filme">
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="title.errors.required && title.touched"
+            id="title"
+            placeholder="Nome do filme">
+          <div *ngIf="title.errors.required && title.touched" class="invalid-feedback">
+            O nome do filme é obrigatório.
+          </div>
         </div>
       </div>
       <div class="col-sm">

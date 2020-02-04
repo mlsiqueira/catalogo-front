@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActorsService } from 'src/app/services/actors.service';
+import { Actor } from 'src/app/models/types';
 
 @Component({
   selector: 'app-actor-form',
@@ -10,25 +11,42 @@ import { ActorsService } from 'src/app/services/actors.service';
   styleUrls: ['./actor-form.component.scss'],
   preserveWhitespaces: true
 })
-export class ActorFormComponent implements OnInit {
+export class ActorFormComponent implements OnInit, AfterContentChecked {
 
+  currentAction: ('new' | 'edit') = 'edit';
+  pageTitle: string;
   formGroup: FormGroup;
-  title: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private actorService: ActorsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.title = this.route.snapshot.data['pageTitle'];
     this.buildForm();
+    this.setCurrentAction();
+    this.populateForm();
+  }
+
+  ngAfterContentChecked() {
+    this.setPageTitle();
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
-    this.actorService.create(this.formGroup.value)
-      .subscribe(console.log);
+    const id = this.route.snapshot.params['id'];
+
+    if (this.currentAction === 'new') {
+      console.log('NEW:', this.formGroup.value);
+      this.actorService.create(this.formGroup.value)
+        .subscribe((m: Actor) => this.router.navigateByUrl('/actors'));
+    } else {
+      console.log('EDIT:', this.formGroup.value);
+      this.actorService.update(id, this.formGroup.value)
+        .subscribe((m: Actor) => {
+          this.router.navigateByUrl('/actors');
+        });
+    }
   }
 
   onReset() {
@@ -38,11 +56,45 @@ export class ActorFormComponent implements OnInit {
 
   private buildForm() {
     this.formGroup = this.formBuilder.group({
-      name: null,
+      name: [null, Validators.required],
       bio: null,
       avatar: null,
       nationality: null,
     });
+  }
+
+  private populateForm() {
+    if (this.currentAction === 'edit') {
+      const id = this.route.snapshot.params['id'];
+
+      this.actorService.get(id).subscribe(a => {
+        this.formGroup.setValue({
+          name: a.name,
+          bio: a.bio,
+          avatar: a.avatar,
+          nationality: a.nationality
+        });
+      });
+    }
+  }
+
+
+  /** Verifica na URL se existe um segmento 'new' */
+  private setCurrentAction() {
+    if (this.route.snapshot.url[0].path === 'new') {
+      this.currentAction = 'new';
+    } else {
+      this.currentAction = 'edit';
+    }
+  }
+
+  private setPageTitle() {
+    if (this.currentAction === 'new') {
+      this.pageTitle = 'Cadastrando um novo ator:';
+    } else {
+      const name = this.formGroup.value.name || '';
+      this.pageTitle = `Editando o ator: ${name}`;
+    }
   }
 
 }
