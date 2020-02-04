@@ -15,43 +15,23 @@ export class ActorsService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Actor[]> {
-    return this.http.get<ActorResponse>(`${environment.API_URL}/actors`)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.get<Actor[]>(`${environment.API_URL}/actors`);
   }
 
   get(id: string): Observable<Actor> {
-    return this.http.get<any>(`${environment.API_URL}/actors/${id}`)
-      .pipe(
-        tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.get<Actor>(`${environment.API_URL}/actors/${id}`);
   }
 
   create(body: Actor): Observable<Actor> {
-    return this.http.post<any>(`${environment.API_URL}/actors`, body)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.post<Actor>(`${environment.API_URL}/actors`, body);
   }
 
   update(id: string, body: Actor): Observable<Actor> {
-    return this.http.put<any>(`${environment.API_URL}/actors/${id}`, body)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.put<Actor>(`${environment.API_URL}/actors/${id}`, body);
   }
 
   delete(id: string) {
-    return this.http.delete<ActorResponse>(`${environment.API_URL}/actors/${id}`)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.delete(`${environment.API_URL}/actors/${id}`);
   }
 
 }

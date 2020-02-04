@@ -15,33 +15,19 @@ export class DirectorsService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Director[]> {
-    return this.http.get<DirectorResponse>(`${environment.API_URL}/directors`)
-      .pipe(
-        map(e => e.data)
-      );
+    return this.http.get<Director[]>(`${environment.API_URL}/directors`);
   }
 
   get(id: string): Observable<Director> {
-    return this.http.get<any>(`${environment.API_URL}/directors/${id}`)
-      .pipe(
-        map(e => e.data)
-      );
+    return this.http.get<Director>(`${environment.API_URL}/directors/${id}`);
   }
 
   create(body: Director): Observable<Director> {
-    return this.http.post<any>(`${environment.API_URL}/directors`, body)
-      .pipe(
-        // tap(console.log)
-        map(e => e.data)
-      );
+    return this.http.post<Director>(`${environment.API_URL}/directors`, body);
   }
 
   update(id: string, body: Director): Observable<Director> {
-    return this.http.put<any>(`${environment.API_URL}/directors/${id}`, body)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.put<Director>(`${environment.API_URL}/directors/${id}`, body);
   }
 
   delete(id: string)  {

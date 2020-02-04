@@ -15,38 +15,23 @@ export class MoviesService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Movie[]> {
-    return this.http.get<MovieResponse>(`${environment.API_URL}/movies`)
-      .pipe(map(e => e.data));
+    return this.http.get<Movie[]>(`${environment.API_URL}/movies`);
   }
 
   get(id: string): Observable<Movie> {
-    return this.http.get<any>(`${environment.API_URL}/movies/${id}`)
-      .pipe(
-        map(e => e.data)
-      );
+    return this.http.get<Movie>(`${environment.API_URL}/movies/${id}`);
   }
 
   create(body: Movie): Observable<Movie> {
-    return this.http.post<any>(`${environment.API_URL}/movies`, body)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.post<Movie>(`${environment.API_URL}/movies`, body);
   }
 
   update(id: string, body: Movie): Observable<Movie> {
-    return this.http.put<any>(`${environment.API_URL}/movies/${id}`, body)
-      .pipe(
-        // tap(console.log),
-        map(e => e.data)
-      );
+    return this.http.put<Movie>(`${environment.API_URL}/movies/${id}`, body);
   }
 
   delete(id: string) {
-    return this.http.delete(`${environment.API_URL}/movies/${id}`)
-      .pipe(
-        // tap(console.log)
-      );
+    return this.http.delete(`${environment.API_URL}/movies/${id}`);
   }
 
 }
