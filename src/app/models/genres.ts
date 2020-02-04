@@ -1,4 +1,4 @@
-export const genders = [
+export const genres = [
   'Ação',
   'Aventura',
   'Cinema de arte',

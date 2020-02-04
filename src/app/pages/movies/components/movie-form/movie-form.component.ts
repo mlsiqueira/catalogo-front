@@ -7,7 +7,7 @@ import { MoviesService } from '../../../../services/movies.service';
 import { ActorsService } from '../../../../services/actors.service';
 import { DirectorsService } from '../../../../services/directors.service';
 import { Director, Actor, Movie } from 'src/app/models/types';
-import { genders } from '../../../../models/genders';
+import { genres } from '../../../../models/genres';
 
 @Component({
   selector: 'app-movie-form',
@@ -21,7 +21,7 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   pageTitle: string;
   formGroup: FormGroup;
   inTheater = false;
-  genders = genders;
+  genres = genres;
 
   actors$: Observable<Actor[]>;
   directors$: Observable<Director[]>;
@@ -50,11 +50,15 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
     const id = this.route.snapshot.params['id'];
 
     if (this.currentAction === 'new') {
-      console.log('NEW:', this.formGroup.value);
+      const date = this.formGroup.value.releaseDate;
+      const isoDate = new Date(date).toISOString();
+      this.formGroup.value.releaseDate = isoDate;
+
       this.moviesService.create(this.formGroup.value)
-        .subscribe((m: Movie) => this.router.navigateByUrl('/movies'));
+        .subscribe((m: Movie) => {
+          this.router.navigateByUrl('/movies');
+        });
     } else {
-      console.log('EDIT:', this.formGroup.value);
       this.moviesService.update(id, this.formGroup.value)
         .subscribe((m: Movie) => {
           this.router.navigateByUrl('/movies');
@@ -76,9 +80,31 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
   }
 
 
-  get title() {
-    const title = this.formGroup.get('title');
-    return title;
+  get titleValidation() {
+    const { title } = this.formGroup.controls;
+
+    if (title.errors && title.errors.required && title.touched) {
+      return true;
+    }
+    return false;
+  }
+
+  get directorValidation() {
+    const { directorId } = this.formGroup.controls;
+
+    if (directorId.errors && directorId.errors.required && directorId.touched) {
+      return true;
+    }
+    return false;
+  }
+
+  get genreValidation() {
+    const { genre } = this.formGroup.controls;
+
+    if (genre.errors && genre.errors.required && genre.touched) {
+      return true;
+    }
+    return false;
   }
 
 
@@ -88,9 +114,9 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
       desc: null,
       poster: null,
       directorId: [null, Validators.required],
-      genre: null,
+      genre: [null, Validators.required],
       actorIds: null,
-      releaseDate: null,
+      releaseDate: new Date().toISOString(),
       runtime: null,
       inTheater: 'false',
     });
@@ -115,7 +141,6 @@ export class MovieFormComponent implements OnInit, AfterContentChecked {
           inTheater: m.inTheater.toString()
         });
 
-        console.log('FORM GROUP', this.formGroup.value);
         this.inTheater = m.inTheater;
       });
     }

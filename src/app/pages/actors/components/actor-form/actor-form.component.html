@@ -6,7 +6,10 @@
       <div class="col-sm">
         <div class="form-group">
           <label for="name">Nome:</label>
-          <input formControlName="name" type="text" class="form-control" id="name" placeholder="Nome do ator">
+          <input formControlName="name" type="text" class="form-control" [class.is-invalid]="nameValidation" id="name" placeholder="Nome do ator">
+          <div *ngIf="nameValidation" class="invalid-feedback">
+            O nome do ator é obrigatório.
+          </div>
         </div>
       </div>
       <div class="col-sm">

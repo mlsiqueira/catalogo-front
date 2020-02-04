@@ -54,6 +54,16 @@ export class ActorFormComponent implements OnInit, AfterContentChecked {
   }
 
 
+  get nameValidation() {
+    const { name } = this.formGroup.controls;
+
+    if (name.errors && name.errors.required && name.touched) {
+      return true;
+    }
+    return false;
+  }
+
+
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       name: [null, Validators.required],
@@ -77,7 +87,6 @@ export class ActorFormComponent implements OnInit, AfterContentChecked {
       });
     }
   }
-
 
   /** Verifica na URL se existe um segmento 'new' */
   private setCurrentAction() {

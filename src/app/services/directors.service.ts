@@ -5,7 +5,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
-import { Director, DirectorResponse } from '../models/types';
+import { Director } from '../models/types';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +31,9 @@ export class DirectorsService {
   }
 
   delete(id: string)  {
-    return this.http.delete<DirectorResponse>(`${environment.API_URL}/directors/${id}`)
+    return this.http.delete(`${environment.API_URL}/directors/${id}`)
       .pipe(
         // tap(console.log),
-        map(e => e.data),
         catchError(this.handleError)
       );
   }

@@ -35,7 +35,7 @@ export class DirectorFormComponent implements OnInit, AfterContentChecked {
 
   onSubmit() {
     const id = this.route.snapshot.params['id'];
- 
+
     if (this.currentAction === 'new') {
       console.log('NEW:', this.formGroup.value);
       this.directorService.create(this.formGroup.value)
@@ -51,6 +51,17 @@ export class DirectorFormComponent implements OnInit, AfterContentChecked {
 
   onReset() {
     this.formGroup.reset();
+  }
+
+
+  get nameValidation() {
+    const { name } = this.formGroup.controls;
+    console.log(name)
+
+    if (name.errors && name.errors.required && name.touched) {
+      return true;
+    }
+    return false;
   }
 
 

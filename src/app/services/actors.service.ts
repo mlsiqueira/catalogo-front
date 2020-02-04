@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
-import { Actor, ActorResponse } from '../models/types';
+import { Actor } from '../models/types';
 
 @Injectable({
   providedIn: 'root'

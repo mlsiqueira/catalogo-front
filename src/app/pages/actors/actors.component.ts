@@ -22,7 +22,7 @@ export class ActorsComponent implements OnInit {
     this.actors$ = this.actorsService.list();
   }
 
-  deleteMovie(id: string, idx: number) {
+  deleteMovie(id: string) {
     const observer = {
       next: () => {
         this.actors$ = this.actorsService.list();

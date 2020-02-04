@@ -10,10 +10,10 @@
             formControlName="title"
             type="text"
             class="form-control"
-            [class.is-invalid]="title.errors.required && title.touched"
+            [class.is-invalid]="titleValidation"
             id="title"
             placeholder="Nome do filme">
-          <div *ngIf="title.errors.required && title.touched" class="invalid-feedback">
+          <div *ngIf="titleValidation" class="invalid-feedback">
             O nome do filme é obrigatório.
           </div>
         </div>
@@ -29,7 +29,7 @@
   <div class="container">
     <div class="mb-3">
       <label for="desc">Sinopse:</label>
-      <textarea formControlName="desc" class="form-control" id="desc" placeholder="Descrição do filme..." required></textarea>
+      <textarea formControlName="desc" class="form-control" id="desc" placeholder="Descrição do filme..."></textarea>
     </div>
   </div>
   <div class="container">
@@ -37,17 +37,23 @@
       <div class="col-sm">
         <div class="form-group">
           <label for="directorId">Diretor:</label>
-          <select formControlName="directorId" class="custom-select form-control" id="directorId" size="1">
+          <select formControlName="directorId" [class.is-invalid]="directorValidation" class="custom-select form-control" id="directorId" size="1">
             <option *ngFor="let director of directors$ | async" [value]="director.id">{{ director.name }}</option>
           </select>
+          <div *ngIf="directorValidation" class="invalid-feedback">
+            O nome do filme é obrigatório.
+          </div>
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group">
           <label for="genre">Gênero:</label>
-          <select formControlName="genre" class="form-control" id="genre">
-            <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+          <select formControlName="genre" class="form-control" [class.is-invalid]="genreValidation" id="genre">
+            <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
           </select>
+        </div>
+        <div *ngIf="genreValidation" class="invalid-feedback">
+          O nome do filme é obrigatório.
         </div>
       </div>
       <div class="col-sm">

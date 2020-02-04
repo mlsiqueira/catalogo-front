@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import * as toastr from 'toastr';
@@ -17,15 +16,13 @@ export class MoviesComponent implements OnInit {
 
   movies$: Observable<Movie[]>;
 
-  constructor(
-    private moviesService: MoviesService,
-    private router: Router) { }
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit() {
     this.movies$ = this.moviesService.list();
   }
 
-  deleteMovie(id: string, idx: number) {
+  deleteMovie(id: string) {
     const observer = {
       next: () => {
         this.movies$ = this.moviesService.list();
